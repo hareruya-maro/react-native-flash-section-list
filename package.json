@@ -1,0 +1,33 @@
+{
+  "name": "react-native-flash-section-list",
+  "version": "0.1.0",
+  "description": "SectionList for React Native using FlashList",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hareruya-maro/react-native-flash-section-list.git"
+  },
+  "keywords": [
+    "React",
+    "Native",
+    "FlashList",
+    "SectionList",
+    "SectionGrid"
+  ],
+  "author": "Haruya Nakamura",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hareruya-maro/react-native-flash-section-list/issues"
+  },
+  "homepage": "https://github.com/hareruya-maro/react-native-flash-section-list#readme",
+  "dependencies": {
+    "@shopify/flash-list": "^1.7.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.9",
+    "typescript": "^5.6.2"
+  }
+}
