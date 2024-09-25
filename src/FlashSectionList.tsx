@@ -2,6 +2,12 @@ import { FlashList, ListRenderItem } from "@shopify/flash-list";
 import React from "react";
 import { SectionBase, SectionListData, View } from "react-native";
 
+interface SeparatorProps<ItemT, SectionT> {
+  index: number;
+  leadingItem: DataItem<ItemT, SectionT>;
+  trailingItem: DataItem<ItemT, SectionT>;
+}
+
 type DataItem<ItemT, SectionT> =
   | {
       type: "sectionHeader";
@@ -29,10 +35,15 @@ interface FlashSectionListProps<
         section: SectionListData<ItemT, SectionT>;
       }) => React.ReactElement | null)
     | undefined;
-  SectionSeparatorComponent?: React.ComponentType<any> | null | undefined;
-  ItemSeparatorComponent?: React.ComponentType<any> | null | undefined;
+  SectionSeparatorComponent?:
+    | ((props: SeparatorProps<ItemT, SectionT>) => React.ReactElement)
+    | null
+    | undefined;
+  ItemSeparatorComponent?:
+    | ((props: SeparatorProps<ItemT, SectionT>) => React.ReactElement)
+    | null
+    | undefined;
   stickySectionHeadersEnabled?: boolean;
-  estimatedItemSize?: number;
 }
 
 export function FlashSectionList<
@@ -48,24 +59,20 @@ export function FlashSectionList<
     })
     .flat() as DataItem<ItemT, SectionT>[];
 
-  const stickyHeaderIndices = data
-    .map((item, index) => {
-      if (item.type === "sectionHeader") {
-        return index;
-      } else {
-        return null;
-      }
-    })
-    .filter((item) => item !== null) as number[];
+  const stickyHeaderIndices = props.stickySectionHeadersEnabled
+    ? data
+        .map((item, index) => {
+          if (item.type === "sectionHeader") {
+            return index;
+          } else {
+            return null;
+          }
+        })
+        .filter((item) => item !== null)
+    : [];
 
-  const separator = (index: number) => {
-    // Make sure we have data and don't read out of bounds
-    if (
-      !data ||
-      index + 1 >= data.length ||
-      stickyHeaderIndices.includes(index) ||
-      stickyHeaderIndices.includes(index + 1)
-    ) {
+  const separator = (index: number, isSection: boolean) => {
+    if (!data || index + 1 >= data.length) {
       return null;
     }
 
@@ -73,10 +80,14 @@ export function FlashSectionList<
     const trailingItem = data[index + 1];
 
     const separatorProps = {
+      index,
       leadingItem,
       trailingItem,
     };
-    const Separator = props.ItemSeparatorComponent;
+
+    const Separator = isSection
+      ? props.SectionSeparatorComponent
+      : props.ItemSeparatorComponent;
     return Separator && <Separator {...separatorProps} />;
   };
 
@@ -89,12 +100,16 @@ export function FlashSectionList<
   }) => {
     if (info.item.type === "sectionHeader") {
       return (
-        props.renderSectionHeader?.({ section: info.item.section }) || null
+        <>
+          {props.inverted ? separator(info.index, true) : null}
+          {props.renderSectionHeader?.({ section: info.item.section }) || null}
+          {props.inverted ? null : separator(info.index, true)}
+        </>
       );
     } else {
       return (
         <>
-          {props.inverted ? separator(info.index) : null}
+          {props.inverted ? separator(info.index, false) : null}
           <View
             style={{
               flexDirection:
@@ -103,7 +118,7 @@ export function FlashSectionList<
           >
             {props.renderItem?.({ item: info.item.item } as any)}
           </View>
-          {props.inverted ? null : separator(info.index)}
+          {props.inverted ? null : separator(info.index, false)}
         </>
       );
     }
