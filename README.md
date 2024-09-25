@@ -24,7 +24,7 @@ npm install react-native-flash-section-list
 You can use it like React Native's SectionList.
 
 ```ts
-import { FlashSectionList } from "@/components/common/FlashSectionList";
+import { FlashSectionList } from "react-native-flash-section-list";
 import React from "react";
 import { SafeAreaView, StatusBar, StyleSheet, Text, View } from "react-native";
 
