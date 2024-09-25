@@ -1,9 +1,12 @@
 {
   "name": "react-native-flash-section-list",
-  "version": "0.1.0",
+  "version": "0.1.4",
   "description": "SectionList for React Native using FlashList",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,8 +26,8 @@
     "url": "https://github.com/hareruya-maro/react-native-flash-section-list/issues"
   },
   "homepage": "https://github.com/hareruya-maro/react-native-flash-section-list#readme",
-  "dependencies": {
-    "@shopify/flash-list": "^1.7.1"
+  "peerDependencies": {
+    "@shopify/flash-list": "^1.6"
   },
   "devDependencies": {
     "@types/react": "^18.3.9",
