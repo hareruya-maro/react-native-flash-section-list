@@ -1,6 +1,12 @@
 import { FlashList, ListRenderItem } from "@shopify/flash-list";
 import React from "react";
-import { SectionBase, SectionListData, View } from "react-native";
+import {
+  SectionBase,
+  SectionListData,
+  TextStyle,
+  View,
+  ViewStyle,
+} from "react-native";
 import SectionIndex, { SectionIndexData } from "./SectionIndex";
 
 interface SeparatorProps<ItemT, SectionT> {
@@ -45,9 +51,14 @@ interface FlashSectionListProps<
     | null
     | undefined;
   stickySectionHeadersEnabled?: boolean;
-  sectionIndexLabelsKey?: keyof SectionT;
-  onSectionIndexPress?: (index: number) => void;
-  dark?: boolean;
+  sectionIndexOptions?: {
+    sectionIndexLabelsKey?: keyof SectionT;
+    onSectionIndexPress?: (index: number) => void;
+    dark?: boolean;
+    barContainerStyle?: ViewStyle;
+    barStyle?: ViewStyle;
+    textStyle?: TextStyle;
+  };
 }
 
 export function FlashSectionList<
@@ -73,7 +84,9 @@ export function FlashSectionList<
       return;
     }
     sectionLabels.push({
-      char: (item.section as any)[props.sectionIndexLabelsKey] as string,
+      char: (item.section as any)[
+        props.sectionIndexOptions?.sectionIndexLabelsKey
+      ] as string,
       actualIndex: index,
     });
     if (props.stickySectionHeadersEnabled !== false) {
@@ -169,9 +182,9 @@ export function FlashSectionList<
         data={sectionLabels}
         onPressIndex={(data, index) => {
           ref.current?.scrollToIndex({ index: data.actualIndex });
-          props.onSectionIndexPress?.(index);
+          props.sectionIndexOptions?.onSectionIndexPress?.(index);
         }}
-        dark={props.dark}
+        {...props.sectionIndexOptions}
       />
     </View>
   );

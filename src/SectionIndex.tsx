@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   LayoutChangeEvent,
   PanResponder,
@@ -36,43 +36,49 @@ export default function SectionIndex({
   getLabel = (data) => data.char.substring(0, 1),
   onPressIndex = (_d, _i) => {},
 }: SectionIndexProps) {
-  const { width, fontScale } = useWindowDimensions();
+  const { fontScale } = useWindowDimensions();
   const fontSize = Math.ceil(propFontSize * fontScale);
   const styles = makeStyles(dark, fontSize);
   const indexRef = useRef(0);
   const [barYPos, setBarYPos] = useState(0);
   const [barHeight, setBarHeight] = useState(0);
   const [indexData, setIndexData] = useState<SectionIndexData[]>([]);
+  const [visibleCharCount, setVisibleCharCount] = useState(0);
+
+  useEffect(() => {
+    if (visibleCharCount === 0) {
+      return;
+    }
+    if (data.length <= visibleCharCount) {
+      setIndexData(data);
+      return;
+    }
+
+    const ellipsisVisibleCharCount = Math.round(visibleCharCount / 2);
+    let ellipsisCount = 2;
+    let ellipsisList = data.filter((_, i) => i % ellipsisCount === 0);
+    while (
+      ellipsisList.length != 0 &&
+      ellipsisList.length > ellipsisVisibleCharCount
+    ) {
+      ellipsisCount++;
+      ellipsisList = data.filter((_, i) => i % ellipsisCount === 0);
+    }
+    ellipsisList[ellipsisList.length - 1] = data[data.length - 1];
+
+    setIndexData(
+      ellipsisList
+        .map((d) => [d, { char: "・", actualIndex: -1 }])
+        .flat()
+        .slice(0, -1)
+    );
+  }, [data, visibleCharCount]);
 
   const onBarVisibleAreaLayout = useCallback(
     (e: LayoutChangeEvent) => {
       const { height } = e.nativeEvent.layout;
-      const visibleHeight = height;
-      const visibleCharCount = Math.floor(visibleHeight / fontSize);
-
-      if (data.length <= visibleCharCount) {
-        setIndexData(data);
-        return;
-      }
-
-      const ellipsisVisibleCharCount = Math.round(visibleCharCount / 2);
-      let ellipsisCount = 2;
-      let ellipsisList = data.filter((_, i) => i % ellipsisCount === 0);
-      while (
-        ellipsisList.length != 0 &&
-        ellipsisList.length > ellipsisVisibleCharCount
-      ) {
-        ellipsisCount++;
-        ellipsisList = data.filter((_, i) => i % ellipsisCount === 0);
-      }
-      ellipsisList[ellipsisList.length - 1] = data[data.length - 1];
-
-      setIndexData(
-        ellipsisList
-          .map((d) => [d, { char: "・", actualIndex: -1 }])
-          .flat()
-          .slice(0, -1)
-      );
+      const visibleCharCount = Math.floor(height / fontSize);
+      setVisibleCharCount(visibleCharCount);
     },
     [propFontSize, fontScale]
   );
@@ -144,7 +150,7 @@ export default function SectionIndex({
 const makeStyles = (dark: boolean, fontSize: number) =>
   StyleSheet.create({
     sectionIndexContainer: {
-      right: 4,
+      right: 0,
       width: fontSize + 10,
       marginLeft: -(fontSize + 10),
       height: "100%",
