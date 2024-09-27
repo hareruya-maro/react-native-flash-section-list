@@ -103,6 +103,11 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Changelog
 
+### [0.1.6] - 2024-09-27
+
+- Add Section Index style props.
+- fixed bugs.
+
 ### [0.1.5] - 2024-09-27
 
 - Add Section Index Component.

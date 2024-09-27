@@ -312,11 +312,14 @@ export default function SectionScreen() {
         renderSectionHeader={({ section: { title } }) => (
           <Text style={styles.header}>{title}</Text>
         )}
-        sectionIndexLabelsKey={"title"}
-        onSectionIndexPress={(index) => {
-          console.log("onSectionIndexPress", index);
+        sectionIndexOptions={{
+          sectionIndexLabelsKey: "title",
+          onSectionIndexPress: (index) => {
+            console.log("onSectionIndexPress", index);
+          },
+          dark: false,
+          barStyle: { backgroundColor: "red" },
         }}
-        // dark
       />
     </SafeAreaView>
   );
