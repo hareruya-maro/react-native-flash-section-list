@@ -57,6 +57,7 @@ export default function GridScreen() {
           <Text style={styles.header}>{title}</Text>
         )}
         numColumns={2}
+        sectionIndexLabelsKey={"title"}
       />
     </SafeAreaView>
   );

@@ -34,6 +34,262 @@ const DATA = [
     title: "Desserts",
     data: ["Cheese Cake", "Ice Cream"],
   },
+  {
+    title: "Main dishes",
+    data: ["Pizza", "Burger", "Risotto"],
+  },
+  {
+    title: "Sides",
+    data: ["French Fries", "Onion Rings", "Fried Shrimps"],
+  },
+  {
+    title: "Drinks",
+    data: ["Water", "Coke", "Beer"],
+  },
+  {
+    title: "Desserts",
+    data: ["Cheese Cake", "Ice Cream"],
+  },
+  {
+    title: "Main dishes",
+    data: ["Pizza", "Burger", "Risotto"],
+  },
+  {
+    title: "Sides",
+    data: ["French Fries", "Onion Rings", "Fried Shrimps"],
+  },
+  {
+    title: "Drinks",
+    data: ["Water", "Coke", "Beer"],
+  },
+  {
+    title: "Desserts",
+    data: ["Cheese Cake", "Ice Cream"],
+  },
+  {
+    title: "Main dishes",
+    data: ["Pizza", "Burger", "Risotto"],
+  },
+  {
+    title: "Sides",
+    data: ["French Fries", "Onion Rings", "Fried Shrimps"],
+  },
+  {
+    title: "Drinks",
+    data: ["Water", "Coke", "Beer"],
+  },
+  {
+    title: "Desserts",
+    data: ["Cheese Cake", "Ice Cream"],
+  },
+  {
+    title: "Main dishes",
+    data: ["Pizza", "Burger", "Risotto"],
+  },
+  {
+    title: "Sides",
+    data: ["French Fries", "Onion Rings", "Fried Shrimps"],
+  },
+  {
+    title: "Drinks",
+    data: ["Water", "Coke", "Beer"],
+  },
+  {
+    title: "Desserts",
+    data: ["Cheese Cake", "Ice Cream"],
+  },
+  {
+    title: "Main dishes",
+    data: ["Pizza", "Burger", "Risotto"],
+  },
+  {
+    title: "Sides",
+    data: ["French Fries", "Onion Rings", "Fried Shrimps"],
+  },
+  {
+    title: "Drinks",
+    data: ["Water", "Coke", "Beer"],
+  },
+  {
+    title: "Desserts",
+    data: ["Cheese Cake", "Ice Cream"],
+  },
+  {
+    title: "Main dishes",
+    data: ["Pizza", "Burger", "Risotto"],
+  },
+  {
+    title: "Sides",
+    data: ["French Fries", "Onion Rings", "Fried Shrimps"],
+  },
+  {
+    title: "Drinks",
+    data: ["Water", "Coke", "Beer"],
+  },
+  {
+    title: "Desserts",
+    data: ["Cheese Cake", "Ice Cream"],
+  },
+  {
+    title: "Main dishes",
+    data: ["Pizza", "Burger", "Risotto"],
+  },
+  {
+    title: "Sides",
+    data: ["French Fries", "Onion Rings", "Fried Shrimps"],
+  },
+  {
+    title: "Drinks",
+    data: ["Water", "Coke", "Beer"],
+  },
+  {
+    title: "Desserts",
+    data: ["Cheese Cake", "Ice Cream"],
+  },
+  {
+    title: "Main dishes",
+    data: ["Pizza", "Burger", "Risotto"],
+  },
+  {
+    title: "Sides",
+    data: ["French Fries", "Onion Rings", "Fried Shrimps"],
+  },
+  {
+    title: "Drinks",
+    data: ["Water", "Coke", "Beer"],
+  },
+  {
+    title: "Desserts",
+    data: ["Cheese Cake", "Ice Cream"],
+  },
+  {
+    title: "Main dishes",
+    data: ["Pizza", "Burger", "Risotto"],
+  },
+  {
+    title: "Sides",
+    data: ["French Fries", "Onion Rings", "Fried Shrimps"],
+  },
+  {
+    title: "Drinks",
+    data: ["Water", "Coke", "Beer"],
+  },
+  {
+    title: "Desserts",
+    data: ["Cheese Cake", "Ice Cream"],
+  },
+  {
+    title: "Main dishes",
+    data: ["Pizza", "Burger", "Risotto"],
+  },
+  {
+    title: "Sides",
+    data: ["French Fries", "Onion Rings", "Fried Shrimps"],
+  },
+  {
+    title: "Drinks",
+    data: ["Water", "Coke", "Beer"],
+  },
+  {
+    title: "Desserts",
+    data: ["Cheese Cake", "Ice Cream"],
+  },
+  {
+    title: "Main dishes",
+    data: ["Pizza", "Burger", "Risotto"],
+  },
+  {
+    title: "Sides",
+    data: ["French Fries", "Onion Rings", "Fried Shrimps"],
+  },
+  {
+    title: "Drinks",
+    data: ["Water", "Coke", "Beer"],
+  },
+  {
+    title: "Desserts",
+    data: ["Cheese Cake", "Ice Cream"],
+  },
+  {
+    title: "Main dishes",
+    data: ["Pizza", "Burger", "Risotto"],
+  },
+  {
+    title: "Sides",
+    data: ["French Fries", "Onion Rings", "Fried Shrimps"],
+  },
+  {
+    title: "Drinks",
+    data: ["Water", "Coke", "Beer"],
+  },
+  {
+    title: "Desserts",
+    data: ["Cheese Cake", "Ice Cream"],
+  },
+  {
+    title: "Main dishes",
+    data: ["Pizza", "Burger", "Risotto"],
+  },
+  {
+    title: "Sides",
+    data: ["French Fries", "Onion Rings", "Fried Shrimps"],
+  },
+  {
+    title: "Drinks",
+    data: ["Water", "Coke", "Beer"],
+  },
+  {
+    title: "Desserts",
+    data: ["Cheese Cake", "Ice Cream"],
+  },
+  {
+    title: "Main dishes",
+    data: ["Pizza", "Burger", "Risotto"],
+  },
+  {
+    title: "Sides",
+    data: ["French Fries", "Onion Rings", "Fried Shrimps"],
+  },
+  {
+    title: "Drinks",
+    data: ["Water", "Coke", "Beer"],
+  },
+  {
+    title: "Desserts",
+    data: ["Cheese Cake", "Ice Cream"],
+  },
+  {
+    title: "Main dishes",
+    data: ["Pizza", "Burger", "Risotto"],
+  },
+  {
+    title: "Sides",
+    data: ["French Fries", "Onion Rings", "Fried Shrimps"],
+  },
+  {
+    title: "Drinks",
+    data: ["Water", "Coke", "Beer"],
+  },
+  {
+    title: "Desserts",
+    data: ["Cheese Cake", "Ice Cream"],
+  },
+  {
+    title: "Main dishes",
+    data: ["Pizza", "Burger", "Risotto"],
+  },
+  {
+    title: "Sides",
+    data: ["French Fries", "Onion Rings", "Fried Shrimps"],
+  },
+  {
+    title: "Drinks",
+    data: ["Water", "Coke", "Beer"],
+  },
+  {
+    title: "あいうえお",
+    data: ["Cheese Cake", "Ice Cream"],
+  },
 ];
 
 export default function SectionScreen() {
@@ -56,6 +312,11 @@ export default function SectionScreen() {
         renderSectionHeader={({ section: { title } }) => (
           <Text style={styles.header}>{title}</Text>
         )}
+        sectionIndexLabelsKey={"title"}
+        onSectionIndexPress={(index) => {
+          console.log("onSectionIndexPress", index);
+        }}
+        // dark
       />
     </SafeAreaView>
   );
