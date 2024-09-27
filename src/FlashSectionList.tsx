@@ -1,6 +1,7 @@
 import { FlashList, ListRenderItem } from "@shopify/flash-list";
 import React from "react";
 import { SectionBase, SectionListData, View } from "react-native";
+import SectionIndex, { SectionIndexData } from "./SectionIndex";
 
 interface SeparatorProps<ItemT, SectionT> {
   index: number;
@@ -44,12 +45,17 @@ interface FlashSectionListProps<
     | null
     | undefined;
   stickySectionHeadersEnabled?: boolean;
+  sectionIndexLabelsKey?: keyof SectionT;
+  onSectionIndexPress?: (index: number) => void;
+  dark?: boolean;
 }
 
 export function FlashSectionList<
   ItemT,
   SectionT extends SectionBase<ItemT, SectionT>
 >(props: FlashSectionListProps<ItemT, SectionT>) {
+  const ref = React.useRef<FlashList<DataItem<ItemT, SectionT>>>(null);
+
   const data = props.sections
     .map((section) => {
       return [
@@ -59,18 +65,21 @@ export function FlashSectionList<
     })
     .flat() as DataItem<ItemT, SectionT>[];
 
-  const stickyHeaderIndices = props.stickySectionHeadersEnabled
-    ? data
-        .map((item, index) => {
-          if (item.type === "sectionHeader") {
-            return index;
-          } else {
-            return null;
-          }
-        })
-        .filter((item) => item !== null)
-    : [];
+  const stickyHeaderIndices: number[] = [];
+  const sectionLabels: SectionIndexData[] = [];
 
+  data.forEach((item, index) => {
+    if (item.type !== "sectionHeader") {
+      return;
+    }
+    sectionLabels.push({
+      char: (item.section as any)[props.sectionIndexLabelsKey] as string,
+      actualIndex: index,
+    });
+    if (props.stickySectionHeadersEnabled !== false) {
+      stickyHeaderIndices.push(index);
+    }
+  });
   const separator = (index: number, isSection: boolean) => {
     if (!data || index + 1 >= data.length) {
       return null;
@@ -143,14 +152,27 @@ export function FlashSectionList<
   };
 
   return (
-    <FlashList
-      {...props}
-      ItemSeparatorComponent={null}
-      data={data as DataItem<ItemT, SectionT>[]}
-      renderItem={renderItem}
-      stickyHeaderIndices={stickyHeaderIndices}
-      getItemType={(item) => item.type}
-      overrideItemLayout={overrideItemLayout}
-    />
+    <View style={{ flexDirection: "row" }}>
+      <FlashList
+        {...props}
+        ref={ref}
+        ItemSeparatorComponent={null}
+        data={data as DataItem<ItemT, SectionT>[]}
+        renderItem={renderItem}
+        stickyHeaderIndices={
+          props.stickySectionHeadersEnabled !== false ? stickyHeaderIndices : []
+        }
+        getItemType={(item) => item.type}
+        overrideItemLayout={overrideItemLayout}
+      />
+      <SectionIndex
+        data={sectionLabels}
+        onPressIndex={(data, index) => {
+          ref.current?.scrollToIndex({ index: data.actualIndex });
+          props.onSectionIndexPress?.(index);
+        }}
+        dark={props.dark}
+      />
+    </View>
   );
 }
