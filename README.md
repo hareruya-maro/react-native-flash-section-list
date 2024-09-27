@@ -103,6 +103,10 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Changelog
 
+### [0.1.5] - 2024-09-27
+
+- Add Section Index Component.
+
 ### [0.1.4] - 2024-09-24
 
 - Released the library.

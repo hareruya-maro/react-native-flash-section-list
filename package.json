@@ -1,6 +1,6 @@
 {
   "name": "react-native-flash-section-list",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "SectionList for React Native using FlashList",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
