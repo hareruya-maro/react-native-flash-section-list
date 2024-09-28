@@ -103,6 +103,10 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Changelog
 
+### [0.1.7] - 2024-09-27
+
+- Adjust Style Props for Improved Android Performance.
+
 ### [0.1.6] - 2024-09-27
 
 - Add Section Index style props.
