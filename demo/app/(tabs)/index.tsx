@@ -318,7 +318,7 @@ export default function SectionScreen() {
             console.log("onSectionIndexPress", index);
           },
           dark: false,
-          barStyle: { backgroundColor: "red" },
+          barStyle: { backgroundColor: "#FFddddcc", borderRadius: 10 },
         }}
       />
     </SafeAreaView>
