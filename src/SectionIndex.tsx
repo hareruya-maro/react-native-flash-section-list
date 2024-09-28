@@ -164,10 +164,10 @@ const makeStyles = (dark: boolean, fontSize: number) =>
       maxHeight: "100%",
       overflow: "hidden",
       paddingVertical: 8,
-      paddingHorizontal: 4,
     },
     touchArea: {
       justifyContent: "space-between",
+      paddingHorizontal: 4,
       width: "100%",
     },
     text: {
