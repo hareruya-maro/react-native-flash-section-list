@@ -95,6 +95,16 @@ export default App;
 
 #### Properties
 
+<!--| Property | Type | Default Value | Description |
+|---|---|---|---|
+| renderItem | Function |  | Function to render each object. Should return a react native component.  |
+| sections  | Array |  | Items to be rendered. renderItem will be called with each item in this array.  |  |
+| style | [FlatList](https://facebook.github.io/react-native/docs/flatlist.html) styles (Object) |  | Styles for the container. Styles for an item should be applied inside ```renderItem```. |
+| itemContainerStyle | styles (Object) | | Style for the view child of the row
+
+Note: If you want your item to fill the height when using a horizontal grid, you should give it a height of '100%'
+-->
+
 Sorry, Editing in progress.
 
 <!-- ## License
@@ -102,6 +112,10 @@ Sorry, Editing in progress.
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.-->
 
 ## Changelog
+
+### [0.1.8] - 2024-09-29
+
+- Fixed a crash that occurred when not using SectionIndex.
 
 ### [0.1.7] - 2024-09-27
 

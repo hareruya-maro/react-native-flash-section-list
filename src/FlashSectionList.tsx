@@ -52,7 +52,7 @@ interface FlashSectionListProps<
     | undefined;
   stickySectionHeadersEnabled?: boolean;
   sectionIndexOptions?: {
-    sectionIndexLabelsKey?: keyof SectionT;
+    sectionIndexLabelsKey: keyof SectionT;
     onSectionIndexPress?: (index: number) => void;
     dark?: boolean;
     barContainerStyle?: ViewStyle;
@@ -178,14 +178,16 @@ export function FlashSectionList<
         getItemType={(item) => item.type}
         overrideItemLayout={overrideItemLayout}
       />
-      <SectionIndex
-        data={sectionLabels}
-        onPressIndex={(data, index) => {
-          ref.current?.scrollToIndex({ index: data.actualIndex });
-          props.sectionIndexOptions?.onSectionIndexPress?.(index);
-        }}
-        {...props.sectionIndexOptions}
-      />
+      {!!props.sectionIndexOptions && (
+        <SectionIndex
+          data={sectionLabels}
+          onPressIndex={(data, index) => {
+            ref.current?.scrollToIndex({ index: data.actualIndex });
+            props.sectionIndexOptions?.onSectionIndexPress?.(index);
+          }}
+          {...props.sectionIndexOptions}
+        />
+      )}
     </View>
   );
 }

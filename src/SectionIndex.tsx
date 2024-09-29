@@ -33,7 +33,7 @@ export default function SectionIndex({
   textStyle = {},
   data,
   fontSize: propFontSize = 10,
-  getLabel = (data) => data.char.substring(0, 1),
+  getLabel = (data) => data.char?.substring(0, 1),
   onPressIndex = (_d, _i) => {},
 }: SectionIndexProps) {
   const { fontScale } = useWindowDimensions();
