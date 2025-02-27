@@ -1,4 +1,4 @@
-import { FlashList, ListRenderItem } from "@shopify/flash-list";
+import { FlashList, ListRenderItem, RenderTarget } from "@shopify/flash-list";
 import React from "react";
 import {
   SectionBase,
@@ -40,6 +40,7 @@ interface FlashSectionListProps<
   renderSectionHeader?:
     | ((info: {
         section: SectionListData<ItemT, SectionT>;
+        extraData?: any;
       }) => React.ReactElement | null)
     | undefined;
   SectionSeparatorComponent?:
@@ -70,8 +71,13 @@ export function FlashSectionList<
   const data = props.sections
     .map((section) => {
       return [
-        { type: "sectionHeader", section },
-        ...section.data.map((item) => ({ type: "row", item })),
+        { type: "sectionHeader", section, extraData: props.extraData },
+        ...section.data.map((item, index) => ({
+          type: "row",
+          item,
+          index,
+          extraData: props.extraData,
+        })),
       ];
     })
     .flat() as DataItem<ItemT, SectionT>[];
@@ -119,12 +125,23 @@ export function FlashSectionList<
     | undefined = (info: {
     item: DataItem<ItemT, SectionT>;
     index: number;
+    target: RenderTarget;
+    extraData?: any;
   }) => {
     if (info.item.type === "sectionHeader") {
       return (
         <>
           {props.inverted ? separator(info.index, true) : null}
-          {props.renderSectionHeader?.({ section: info.item.section }) || null}
+          <View
+            style={{
+              flexDirection: props.horizontal ? "column" : "row",
+            }}
+          >
+            {props.renderSectionHeader?.({
+              section: info.item.section,
+              extraData: info.extraData,
+            }) || null}
+          </View>
           {props.inverted ? null : separator(info.index, true)}
         </>
       );
