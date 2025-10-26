@@ -1,6 +1,6 @@
 {
   "name": "react-native-flash-section-list",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "description": "SectionList for React Native using FlashList",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -27,10 +27,10 @@
   },
   "homepage": "https://github.com/hareruya-maro/react-native-flash-section-list#readme",
   "peerDependencies": {
-    "@shopify/flash-list": "^1.7"
+    "@shopify/flash-list": "^2.0"
   },
   "devDependencies": {
-    "@types/react": "^18.3.9",
+    "@types/react": "^19.1.1",
     "typescript": "^5.6.2"
   }
 }

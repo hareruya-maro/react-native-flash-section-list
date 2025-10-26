@@ -1,5 +1,6 @@
-import { SafeAreaView, StatusBar, StyleSheet, Text, View } from "react-native";
+import { StatusBar, StyleSheet, Text, View } from "react-native";
 import { FlashSectionList } from "react-native-flash-section-list";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const DATA = [
   {
@@ -42,7 +43,7 @@ export default function GridScreen() {
       <FlashSectionList
         sections={DATA}
         keyExtractor={(item, index) => {
-          if (item.type === "sectionHeader") {
+          if (item.type === "sectionHeader" || item.type === "sectionFooter") {
             return item.section.title + index;
           } else {
             return item.item + index;
@@ -57,7 +58,9 @@ export default function GridScreen() {
           <Text style={styles.header}>{title}</Text>
         )}
         numColumns={2}
-        sectionIndexLabelsKey={"title"}
+        sectionIndexOptions={{
+          sectionIndexLabelsKey: "title",
+        }}
       />
     </SafeAreaView>
   );

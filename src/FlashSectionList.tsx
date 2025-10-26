@@ -1,4 +1,9 @@
-import { FlashList, ListRenderItem, RenderTarget } from "@shopify/flash-list";
+import {
+  FlashList,
+  FlashListRef,
+  ListRenderItem,
+  RenderTarget,
+} from "@shopify/flash-list";
 import React from "react";
 import {
   SectionBase,
@@ -20,6 +25,10 @@ type DataItem<ItemT, SectionT> =
       type: "sectionHeader";
       section: SectionT;
     }
+  | {
+      type: "sectionFooter";
+      section: SectionT;
+    }
   | { type: "row"; item: ItemT };
 
 interface FlashSectionListProps<
@@ -35,6 +44,7 @@ interface FlashSectionListProps<
   renderSectionFooter?:
     | ((info: {
         section: SectionListData<ItemT, SectionT>;
+        extraData?: any;
       }) => React.ReactElement | null)
     | undefined;
   renderSectionHeader?:
@@ -66,7 +76,7 @@ export function FlashSectionList<
   ItemT,
   SectionT extends SectionBase<ItemT, SectionT>
 >(props: FlashSectionListProps<ItemT, SectionT>) {
-  const ref = React.useRef<FlashList<DataItem<ItemT, SectionT>>>(null);
+  const ref = React.useRef<FlashListRef<DataItem<ItemT, SectionT>>>(null);
 
   const data = props.sections
     .map((section) => {
@@ -131,7 +141,9 @@ export function FlashSectionList<
     if (info.item.type === "sectionHeader") {
       return (
         <>
-          {props.inverted ? separator(info.index, true) : null}
+          {props.maintainVisibleContentPosition?.startRenderingFromBottom
+            ? separator(info.index, true)
+            : null}
           <View
             style={{
               flexDirection: props.horizontal ? "column" : "row",
@@ -142,13 +154,38 @@ export function FlashSectionList<
               extraData: info.extraData,
             }) || null}
           </View>
-          {props.inverted ? null : separator(info.index, true)}
+          {props.maintainVisibleContentPosition?.startRenderingFromBottom
+            ? null
+            : separator(info.index, true)}
+        </>
+      );
+    } else if (info.item.type === "sectionFooter") {
+      return (
+        <>
+          {props.maintainVisibleContentPosition?.startRenderingFromBottom
+            ? separator(info.index, true)
+            : null}
+          <View
+            style={{
+              flexDirection: props.horizontal ? "column" : "row",
+            }}
+          >
+            {props.renderSectionFooter?.({
+              section: info.item.section,
+              extraData: info.extraData,
+            }) || null}
+          </View>
+          {props.maintainVisibleContentPosition?.startRenderingFromBottom
+            ? null
+            : separator(info.index, true)}
         </>
       );
     } else {
       return (
         <>
-          {props.inverted ? separator(info.index, false) : null}
+          {props.maintainVisibleContentPosition?.startRenderingFromBottom
+            ? separator(info.index, false)
+            : null}
           <View
             style={{
               flexDirection:
@@ -157,7 +194,9 @@ export function FlashSectionList<
           >
             {props.renderItem?.({ item: info.item.item } as any)}
           </View>
-          {props.inverted ? null : separator(info.index, false)}
+          {props.maintainVisibleContentPosition?.startRenderingFromBottom
+            ? null
+            : separator(info.index, false)}
         </>
       );
     }
@@ -185,7 +224,7 @@ export function FlashSectionList<
     <View style={{ flexDirection: "row" }}>
       <FlashList
         {...props}
-        ref={ref}
+        ref={ref as any}
         ItemSeparatorComponent={null}
         data={data as DataItem<ItemT, SectionT>[]}
         renderItem={renderItem}

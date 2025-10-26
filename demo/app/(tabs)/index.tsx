@@ -1,5 +1,6 @@
-import { SafeAreaView, StatusBar, StyleSheet, Text, View } from "react-native";
+import { StatusBar, StyleSheet, Text, View } from "react-native";
 import { FlashSectionList } from "react-native-flash-section-list";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const DATA = [
   {
@@ -298,7 +299,7 @@ export default function SectionScreen() {
       <FlashSectionList
         sections={DATA}
         keyExtractor={(item, index) => {
-          if (item.type === "sectionHeader") {
+          if (item.type === "sectionHeader" || item.type === "sectionFooter") {
             return item.section.title + index;
           } else {
             return item.item + index;
@@ -311,6 +312,9 @@ export default function SectionScreen() {
         )}
         renderSectionHeader={({ section: { title } }) => (
           <Text style={styles.header}>{title}</Text>
+        )}
+        renderSectionFooter={({ section: { title } }) => (
+          <Text style={[styles.header, { fontSize: 20 }]}>End of {title}</Text>
         )}
         sectionIndexOptions={{
           sectionIndexLabelsKey: "title",
