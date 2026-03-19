@@ -33,11 +33,11 @@ type DataItem<ItemT, SectionT> =
 
 interface FlashSectionListProps<
   ItemT,
-  SectionT extends SectionBase<ItemT, SectionT>
+  SectionT extends SectionBase<ItemT, SectionT>,
 > extends Omit<
-    React.ComponentProps<typeof FlashList>,
-    "data" | "renderItem" | "keyExtractor"
-  > {
+  React.ComponentProps<typeof FlashList>,
+  "data" | "renderItem" | "keyExtractor"
+> {
   sections: SectionT[];
   renderItem: ListRenderItem<ItemT> | null | undefined;
   keyExtractor?: (item: DataItem<ItemT, SectionT>, index: number) => string;
@@ -64,6 +64,7 @@ interface FlashSectionListProps<
   stickySectionHeadersEnabled?: boolean;
   sectionIndexOptions?: {
     sectionIndexLabelsKey: keyof SectionT;
+    getLabel?: (data: SectionIndexData) => string;
     onSectionIndexPress?: (index: number) => void;
     dark?: boolean;
     barContainerStyle?: ViewStyle;
@@ -74,7 +75,7 @@ interface FlashSectionListProps<
 
 export function FlashSectionList<
   ItemT,
-  SectionT extends SectionBase<ItemT, SectionT>
+  SectionT extends SectionBase<ItemT, SectionT>,
 >(props: FlashSectionListProps<ItemT, SectionT>) {
   const ref = React.useRef<FlashListRef<DataItem<ItemT, SectionT>>>(null);
 
@@ -210,7 +211,7 @@ export function FlashSectionList<
     item: DataItem<ItemT, SectionT>,
     index: number,
     maxColumns: number,
-    extraData?: any
+    extraData?: any,
   ) => void = (layout, item, index, maxColumns, extraData) => {
     props.overrideItemLayout?.(layout, item, index, maxColumns, extraData);
     if (item.type === "sectionHeader") {
