@@ -64,7 +64,7 @@ interface FlashSectionListProps<
   stickySectionHeadersEnabled?: boolean;
   sectionIndexOptions?: {
     sectionIndexLabelsKey: keyof SectionT;
-    getLabel?: (data: SectionIndexData) => string;
+    getLabel?: (data: SectionIndexData, list?: SectionIndexData[]) => string;
     onSectionIndexPress?: (index: number) => void;
     dark?: boolean;
     barContainerStyle?: ViewStyle;

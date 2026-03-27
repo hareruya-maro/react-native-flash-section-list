@@ -22,7 +22,7 @@ interface SectionIndexProps {
   textStyle?: TextStyle;
   data: SectionIndexData[];
   fontSize?: number;
-  getLabel?: (data: SectionIndexData) => string;
+  getLabel?: (data: SectionIndexData, list?: SectionIndexData[]) => string;
   onPressIndex?: (data: SectionIndexData, index: number) => void;
 }
 
@@ -70,7 +70,7 @@ export default function SectionIndex({
       ellipsisList
         .map((d) => [d, { char: "・", actualIndex: -1 }])
         .flat()
-        .slice(0, -1)
+        .slice(0, -1),
     );
   }, [data, visibleCharCount]);
 
@@ -80,7 +80,7 @@ export default function SectionIndex({
       const visibleCharCount = Math.floor(height / fontSize);
       setVisibleCharCount(visibleCharCount);
     },
-    [propFontSize, fontScale]
+    [propFontSize, fontScale],
   );
 
   const onLayout = useCallback(
@@ -91,7 +91,7 @@ export default function SectionIndex({
         setBarHeight(visibleHeight);
       });
     },
-    [setBarYPos, setBarHeight]
+    [setBarYPos, setBarHeight],
   );
 
   const onPress = useCallback(
@@ -109,7 +109,7 @@ export default function SectionIndex({
       indexRef.current = index;
       onPressIndex(data[index], index);
     },
-    [onPressIndex, barYPos, barHeight]
+    [onPressIndex, barYPos, barHeight],
   );
 
   // タップイベント
@@ -137,7 +137,7 @@ export default function SectionIndex({
           <View style={styles.touchArea} {...panResponder.panHandlers}>
             {indexData.map((v, i) => (
               <Text key={i} style={[styles.text, textStyle]}>
-                {getLabel(v)}
+                {getLabel(v, data)}
               </Text>
             ))}
           </View>
