@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es2016",
+    "rootDir": "./src",
+    "target": "es2019",
     "jsx": "react-native",
     "module": "commonjs",
     "declaration": true,
@@ -11,5 +12,5 @@
     "strict": true,
     "skipLibCheck": true
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

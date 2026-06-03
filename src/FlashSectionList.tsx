@@ -89,6 +89,7 @@ export function FlashSectionList<
           index,
           extraData: props.extraData,
         })),
+        { type: "sectionFooter", section, extraData: props.extraData },
       ];
     })
     .flat() as DataItem<ItemT, SectionT>[];
@@ -110,26 +111,6 @@ export function FlashSectionList<
       stickyHeaderIndices.push(index);
     }
   });
-  const separator = (index: number, isSection: boolean) => {
-    if (!data || index + 1 >= data.length) {
-      return null;
-    }
-
-    const leadingItem = data[index];
-    const trailingItem = data[index + 1];
-
-    const separatorProps = {
-      index,
-      leadingItem,
-      trailingItem,
-    };
-
-    const Separator = isSection
-      ? props.SectionSeparatorComponent
-      : props.ItemSeparatorComponent;
-    return Separator && <Separator {...separatorProps} />;
-  };
-
   const renderItem:
     | ListRenderItem<DataItem<ItemT, SectionT>>
     | null
@@ -139,33 +120,53 @@ export function FlashSectionList<
     target: RenderTarget;
     extraData?: any;
   }) => {
+    const nextItem = data[info.index + 1];
+    const separatorProps = {
+      index: info.index,
+      leadingItem: info.item,
+      trailingItem: nextItem,
+    };
+
+    const renderSeparator = () => {
+      if (!nextItem) return null;
+
+      if (info.item.type === "row" && nextItem.type === "row") {
+        return (
+          props.ItemSeparatorComponent && (
+            <props.ItemSeparatorComponent {...separatorProps} />
+          )
+        );
+      }
+
+      if (info.item.type === "sectionFooter" || info.item.type === "row") {
+        if (nextItem.type === "sectionHeader") {
+          return (
+            props.SectionSeparatorComponent && (
+              <props.SectionSeparatorComponent {...separatorProps} />
+            )
+          );
+        }
+      }
+
+      return null;
+    };
+
     if (info.item.type === "sectionHeader") {
       return (
-        <>
-          {props.maintainVisibleContentPosition?.startRenderingFromBottom
-            ? separator(info.index, true)
-            : null}
-          <View
-            style={{
-              flexDirection: props.horizontal ? "column" : "row",
-            }}
-          >
-            {props.renderSectionHeader?.({
-              section: info.item.section,
-              extraData: info.extraData,
-            }) || null}
-          </View>
-          {props.maintainVisibleContentPosition?.startRenderingFromBottom
-            ? null
-            : separator(info.index, true)}
-        </>
+        <View
+          style={{
+            flexDirection: props.horizontal ? "column" : "row",
+          }}
+        >
+          {props.renderSectionHeader?.({
+            section: info.item.section,
+            extraData: info.extraData,
+          }) || null}
+        </View>
       );
     } else if (info.item.type === "sectionFooter") {
       return (
         <>
-          {props.maintainVisibleContentPosition?.startRenderingFromBottom
-            ? separator(info.index, true)
-            : null}
           <View
             style={{
               flexDirection: props.horizontal ? "column" : "row",
@@ -176,17 +177,12 @@ export function FlashSectionList<
               extraData: info.extraData,
             }) || null}
           </View>
-          {props.maintainVisibleContentPosition?.startRenderingFromBottom
-            ? null
-            : separator(info.index, true)}
+          {renderSeparator()}
         </>
       );
     } else {
       return (
         <>
-          {props.maintainVisibleContentPosition?.startRenderingFromBottom
-            ? separator(info.index, false)
-            : null}
           <View
             style={{
               flexDirection:
@@ -195,9 +191,7 @@ export function FlashSectionList<
           >
             {props.renderItem?.({ item: info.item.item } as any)}
           </View>
-          {props.maintainVisibleContentPosition?.startRenderingFromBottom
-            ? null
-            : separator(info.index, false)}
+          {renderSeparator()}
         </>
       );
     }
@@ -214,7 +208,7 @@ export function FlashSectionList<
     extraData?: any,
   ) => void = (layout, item, index, maxColumns, extraData) => {
     props.overrideItemLayout?.(layout, item, index, maxColumns, extraData);
-    if (item.type === "sectionHeader") {
+    if (item.type === "sectionHeader" || item.type === "sectionFooter") {
       layout.span = maxColumns;
     } else {
       layout.span = 1;
