@@ -113,6 +113,12 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Changelog
 
+### [0.3.3] - 2025-02-12
+
+- Updated `@shopify/flash-list` to `^2.3.1`.
+- Implemented `renderSectionFooter` support.
+- Improved `ItemSeparatorComponent` and `SectionSeparatorComponent` support.
+
 ### [0.1.8] - 2024-09-29
 
 - Fixed a crash that occurred when not using SectionIndex.
